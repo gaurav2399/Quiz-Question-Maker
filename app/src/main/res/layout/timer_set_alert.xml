@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="265dp"
+                android:layout_height="wrap_content" android:padding="15dp">
+    <NumberPicker
+            android:theme="@style/AppTheme.Picker"
+            android:id="@+id/hour_picker" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="@string/a"
+              android:layout_toEndOf="@+id/hour_picker"
+              android:id="@+id/text"
+              android:layout_marginTop="75dp"
+              android:textSize="20sp"
+              android:textColor="#000000" android:layout_marginStart="8dp"
+              android:layout_centerVertical="true"
+              android:layout_alignTop="@+id/hour_picker"/>
+    <NumberPicker
+            android:layout_marginStart="8dp"
+            android:theme="@style/AppTheme.Picker"
+            android:id="@+id/minute_picker" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/text"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="@string/a"
+              android:layout_toEndOf="@+id/minute_picker"
+              android:id="@+id/text2"
+              android:layout_marginTop="75dp"
+              android:textSize="20sp"
+              android:textColor="#000000" android:layout_marginStart="8dp" android:layout_marginBottom="78dp"
+              android:layout_alignBottom="@+id/minute_picker" android:layout_alignTop="@+id/minute_picker"/>
+    <NumberPicker
+            android:layout_marginStart="8dp"
+            android:theme="@style/AppTheme.Picker"
+            android:id="@+id/second_picker" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/text2"/>
+    <Button
+            android:text="@string/cancel"
+            android:textColor="#ffff"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_below="@+id/hour_picker"
+            android:layout_marginTop="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/cancelTimer" android:layout_marginStart="2dp"
+            android:layout_alignStart="@+id/hour_picker"/>
+
+    <Button
+            android:text="@string/ok"
+            android:layout_toEndOf="@+id/cancelTimer"
+            android:textColor="#ffff"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_below="@+id/second_picker"
+            android:layout_marginTop="20dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content" android:id="@+id/addTimer"
+            android:layout_marginEnd="0dp"
+            android:layout_alignEnd="@+id/second_picker"
+            android:layout_alignStart="@+id/text2"/>
+
+</RelativeLayout>

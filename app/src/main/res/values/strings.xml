@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">QuizKotlinProject</string>
+    <string name="add_time">+ Add time</string>
+    <string name="_00_60">00:60</string>
+    <string name="timer">Timer :</string>
+    <string name="total_questions">Total Questions</string>
+    <string name="_0">0</string>
+    <string name="save">Save</string>
+    <string name="exam_title">Exam Title</string>
+    <string name="marks_for_each_question">Marks for each question :</string>
+    <string name="a">:</string>
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
+    <string name="login">login</string>
+    <string name="password">password</string>
+    <string name="username">username</string>
+    <string name="search_your_exam_here">Search your exam here...</string>
+    <string name="matching_exam_with_your_exam_name">Matching exam with your exam name</string>
+</resources>

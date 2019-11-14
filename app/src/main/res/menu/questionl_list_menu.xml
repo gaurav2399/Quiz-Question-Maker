@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/add_question_icon2"
+          app:showAsAction="always"
+          android:title="Add Exam"
+          android:iconTint="#ffff"
+          android:id="@+id/addExamIcon">
+
+    </item>
+
+</menu>
