@@ -11,17 +11,46 @@
              app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
 
     </include>
-    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            app:layout_constrainedHeight="true"
-                                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                            android:id="@+id/questionList"
-                                            app:layout_constraintTop_toBottomOf="@+id/questionListToolbar"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="1.0"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintVertical_bias="0.0">
+
+    <RelativeLayout
+            app:layout_constraintTop_toBottomOf="@+id/questionListToolbar"
+            android:layout_width="match_parent" android:layout_height="30dp"
+            android:padding="2dp"
+            android:background="#DCEDC8"
+            android:id="@+id/totalQuestionsText"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textColor="#000"
+                      android:textSize="18sp"
+                      android:id="@+id/myText"
+                      android:layout_centerVertical="true"
+                      android:text="Total questions : "
+                      android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:text="20"
+                      android:textStyle="bold"
+                      android:id="@+id/totalQuestions"
+                      android:layout_centerVertical="true"
+                      android:layout_toRightOf="@+id/myText"
+                      android:layout_marginRight="5dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="0dp"
+                                               android:layout_height="0dp"
+                                               app:layout_constrainedHeight="true"
+                                               app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                               android:id="@+id/questionList"
+                                               app:layout_constraintTop_toBottomOf="@+id/totalQuestionsText"
+                                               app:layout_constraintStart_toStartOf="parent"
+                                               app:layout_constraintEnd_toEndOf="parent"
+                                               app:layout_constraintHorizontal_bias="0.0"
+                                               app:layout_constraintBottom_toBottomOf="parent"
+                                               app:layout_constraintVertical_bias="0.0">
 
     </androidx.recyclerview.widget.RecyclerView>
     <!--<android.support.design.button.MaterialButton

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -32,10 +33,10 @@ class ExamAdapter(val context:Context,var options:FirestoreRecyclerOptions<ExamM
         Log.e("adapterCreateView EXAM","reach here")
         val view=LayoutInflater.from(context).inflate(R.layout.exam_item,p0,false)
         return ExamViewHolder(view)
-
     }
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int, model: ExamModal) {
+        Log.e("model title",model.title)
         Log.e("adapterBindView EXAM","reach here")
         holder.setTitle(model.title)
 
@@ -44,7 +45,7 @@ class ExamAdapter(val context:Context,var options:FirestoreRecyclerOptions<ExamM
             builder.setTitle("Are you really want to delete exam-${model.title}?")
             builder.setCancelable(false)
             builder.setIcon(R.drawable.alert_warning)
-            builder.setPositiveButton("Delete",DialogInterface.OnClickListener{_,_->
+            builder.setPositiveButton("Delete") { _, _->
                 deleteReference.document(model.id).collection("Questions").get().addOnSuccessListener { documentSnapshots->
                     for(documentSnapshot in documentSnapshots){
                         documentSnapshot.reference.delete()
@@ -52,7 +53,7 @@ class ExamAdapter(val context:Context,var options:FirestoreRecyclerOptions<ExamM
                 }.addOnSuccessListener { deleteReference.document(model.id).delete() }
                     .addOnSuccessListener {
                         Snackbar.make(MoveUpward.moveFAB,"Exam successfully deleted.",Snackbar.LENGTH_SHORT).show() }
-            })
+            }
             builder.setNegativeButton("Cancel",DialogInterface.OnClickListener{dialogInterface, _ -> dialogInterface.dismiss() })
             builder.show()
             return@setOnLongClickListener true
@@ -68,12 +69,10 @@ class ExamAdapter(val context:Context,var options:FirestoreRecyclerOptions<ExamM
         Log.e("error", e.message)
     }
 
-    inner class ExamViewHolder(item : View): RecyclerView.ViewHolder(item){
-        init {
-            Log.e("reach here","please")
-        }
+    inner class ExamViewHolder(private val item : View): RecyclerView.ViewHolder(item){
         fun setTitle(title:String){
-            itemView.examTitle.text=title
+            //itemTitle.examTitle.text=title
+            item.examTitle.text = title
         }
     }
 

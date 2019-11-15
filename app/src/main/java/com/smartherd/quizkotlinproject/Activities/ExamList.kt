@@ -51,9 +51,7 @@ class ExamList : AppCompatActivity(){
         query1=examsCollection
         val options = FirestoreRecyclerOptions.Builder<ExamModal>().setQuery(query1 as CollectionReference)
         { snapshot ->
-            snapshot.toObject(ExamModal::class.java)!!.also {
-                it.id = snapshot.id
-            }
+            ExamModal(snapshot.get("title").toString(),snapshot.id)
         }.build()
 
         /*********** SETTING RECYCLER VIEW **************/

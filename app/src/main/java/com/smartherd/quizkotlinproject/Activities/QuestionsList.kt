@@ -1,8 +1,10 @@
 package com.smartherd.quizkotlinproject.Activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -36,19 +38,23 @@ class QuestionsList : AppCompatActivity() {
         val actionBar=supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         Log.e("enter in question","list yes..")
-        val bundle=intent.extras
+        exam_id=intent.getStringExtra("examId")
         id= GeneralUser.user_id
-        exam_id=bundle?.getString("examId")!!
         Log.e("user id questionlist",id)
         Log.e("exam id questionlist",exam_id)
-        actionBar?.setTitle("Question List")
+        actionBar?.title = "Question List"
+
+        db.collection("Question Makers").document(id)
+            .collection("Exams").document(exam_id).get().addOnSuccessListener {
+                totalQuestions.text = it.get("totalQuestion").toString()
+            }
+
         val questionMakersCollection=db.collection("Question Makers").document(id)
             .collection("Exams").document(exam_id).collection("Questions")
         query1=questionMakersCollection
         val qstnList=findViewById<RecyclerView>(R.id.questionList)
         val options = FirestoreRecyclerOptions.Builder<QuestionModal>().setQuery(query1 as CollectionReference, QuestionModal::class.java).build()
         qstnList.layoutManager= LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-        qstnList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         adapter= QuestionAdapter(this, options)
         qstnList.adapter=adapter
 

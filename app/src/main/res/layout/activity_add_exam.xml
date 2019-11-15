@@ -11,7 +11,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/saveRoot"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="-25dp"
+            tools:layout_editor_absoluteX="25dp">
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/saveExam"
                 app:layout_dodgeInsetEdges="bottom"
@@ -58,22 +59,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView10" app:layout_constraintEnd_toEndOf="@+id/examTitle"
             android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.115"
             app:layout_constraintVertical_bias="0.526"/>
-    <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/totalQuestions"
-            android:text="@string/_0"
-            app:layout_constraintStart_toEndOf="@+id/textView12" android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="@+id/textView12"
-            app:layout_constraintBottom_toBottomOf="@+id/textView12"/>
-    <TextView
-            android:text="@string/total_questions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView12" app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="32dp"
-            android:textSize="18sp" android:textStyle="bold" android:textColor="#404040"/>
+
     <TextView
             android:text="@string/timer"
             android:layout_width="wrap_content"
@@ -81,7 +67,7 @@
             android:id="@+id/textView15"
             android:textSize="18sp" android:textStyle="bold" android:textColor="#000000"
             app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" android:layout_marginTop="32dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="32dp"/>
     <TextView
             android:text="@string/_00_60"
             android:layout_width="wrap_content"
@@ -137,7 +123,7 @@
                android:src="@drawable/ic_timer"
                app:layout_constraintBottom_toBottomOf="@+id/textView15"
                app:layout_constraintTop_toTopOf="@+id/textView15"
-               android:id="@+id/imageView" app:layout_constraintStart_toStartOf="@+id/textView12"/>
+               android:id="@+id/imageView" app:layout_constraintStart_toStartOf="@+id/textView10"/>
     <TextView
             android:text="@string/add_time"
             android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.smartherd.quizkotlinproject.Activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,13 +23,15 @@ class AddQuestion : AppCompatActivity() {
     var answerValue:String="1"
     var optionList= arrayOf(1,2,3,4)
     var exam_id:String?=null
+    var questionsAdded = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_question)
         setSupportActionBar(addQuestionToolbar as Toolbar?)
+        val progressDialog = ProgressDialog(this)
         val actionBar=supportActionBar
-        actionBar?.setTitle("Add Question")
+        actionBar?.title = "Add Question"
         actionBar?.setDisplayHomeAsUpEnabled(true)
         val bundle=intent.extras
         Log.e("enter in add question","yes...")
@@ -43,6 +46,8 @@ class AddQuestion : AppCompatActivity() {
             saveQuestion.setOnClickListener {
                 if(qstn.editText?.text.toString().isNotEmpty()&&option1.text.toString().isNotEmpty()&&option2.text.toString().isNotEmpty()
                     &&option3.text.toString().isNotEmpty()&&option4.text.toString().isNotEmpty()) {
+                    progressDialog.setMessage("Adding Question, Please Wait...")
+                    progressDialog.show()
                 val questionMap = mapOf(
                     "question" to qstn.editText?.text.toString(),
                     "option1" to option1.text.toString(),
@@ -56,19 +61,54 @@ class AddQuestion : AppCompatActivity() {
                     .addOnSuccessListener {
                         val ques_id = it.id
                         Log.e("question id", ques_id)
-                        val intent = Intent(this, QuestionsList::class.java)
-                        intent.putExtra("examId", "${exam_id}")
-                        startActivity(intent)
-                        showToast("Question added successfully.",Toast.LENGTH_LONG)
+                        qstn.editText?.setText("")
+                        option1.setText("")
+                        option2.setText("")
+                        option3.setText("")
+                        option4.setText("")
+                        optionSpinner.setSelection(0)
+                        questionsAdded++
+                        Log.e("questions added",questionsAdded.toString())
+                        //showToast("Total questions saved now $questionsAdded")
+                        progressDialog.dismiss()
+                        showToast("Question added successfully.")
                     }.addOnFailureListener {
-                        showToast("Some error has occured", Toast.LENGTH_LONG)
+                        showToast("Some error has occured")
                     }
             }else{
-                    showToast("empty fields", Toast.LENGTH_LONG)
+                    showToast("empty fields")
                 }
         }
 
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, optionList)
+        doneQuestion.setOnClickListener {
+            val intent = Intent(this, QuestionsList::class.java)
+            intent.putExtra("examId", "$exam_id")
+            var presentQuestions = 0
+            db.collection("Question Makers")
+                .document(id).collection("Exams").document(exam_id!!).get().addOnSuccessListener {
+                    if(it!=null){
+                        presentQuestions = it.get("totalQuestion").toString().toInt()
+                        Log.e("presetQuestions",presentQuestions.toString())
+                        //showToast("present questions are $presentQuestions")
+                        val map = mapOf("totalQuestion" to presentQuestions + questionsAdded)
+                        db.collection("Question Makers")
+                            .document(id).collection("Exams").document(exam_id!!).update(map).addOnSuccessListener {
+                                //showToast("total questions are ${presentQuestions + questionsAdded}")
+                                startActivity(intent)
+                                //showToast("Total Questions Updated.")
+                            }.addOnFailureListener {
+                                showToast("Error in total Questions Updated.")
+                            }
+                    }else{
+                        Log.e("snapshot is empty","null")
+                    }
+
+                }.addOnFailureListener {
+                    Log.e("can't get the total","questions becoz " + it.message)
+                }
+        }
+
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, optionList)
         optionSpinner.adapter=arrayAdapter
         optionSpinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
